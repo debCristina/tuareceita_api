@@ -1,0 +1,26 @@
+CREATE TABLE Recipe (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    average_cost DECIMAL(10, 2),
+    category VARCHAR(100),
+    preparation_time INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Ingredient (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    quantity INT,
+    recipe_id BIGINT,
+    FOREIGN KEY (recipe_id) REFERENCES Recipe(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Step (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    step_number INT NOT NULL,
+    instruction TEXT NOT NULL,
+    recipe_id BIGINT,
+    FOREIGN KEY (recipe_id) REFERENCES Recipe(id) ON DELETE CASCADE
+);
